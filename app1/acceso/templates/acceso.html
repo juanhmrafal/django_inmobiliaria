@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block active_acceder %}active{% endblock %}
+
+{% load static %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Acceder o Registrarse</h2>
+            <ol>
+                <li><a href="/">Inicio</a></li>
+                <li>Acceder o Registrarse</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+<div class="contenido">
+
+	{% if msj %}
+	<div class="warning">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		{{error}}
+	</div>
+	{% endif %}
+	
+	<div class="main">
+	
+		<input type="checkbox" id="chk" aria-hidden="true">
+	
+		<div class="login">
+			{% comment %} iniciar_sesion {% endcomment %}
+			<form action="" method="post">
+				{% csrf_token %}
+				<label for="chk" aria-hidden="true">Iniciar sesión</label>
+				<input type="text" name="username" placeholder="Nombre de usuario" required>
+				<input type="password" name="password" placeholder="Contraseña" required>
+				<button>Iniciar sesión</button>
+			</form>
+		</div>
+	
+		<div class="signup">
+			<form action="" method="post">
+				{% csrf_token %}
+				<label for="chk" aria-hidden="true">Registrarse</label>
+				<input type="text" name="nombre" placeholder="Nombre" required>
+				<input type="text" name="apellido" placeholder="Apellido" required>
+				<input type="text" name="username" placeholder="Nombre de usuario" required>
+				<input type="email" name="email" placeholder="Correo electrónico" required>
+				<input type="password" name="password" placeholder="Contraseña" required>
+				<input type="password" name="confirmar_password" placeholder="Confirmar contraseña" required>
+				<button>Registrarse</button>
+			</form>
+		</div>
+	</div>
+	
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+
+<script>
+	const checkbox = document.getElementById('chk');
+	const mainDiv = document.querySelector('.main');
+
+	checkbox.addEventListener('change', function () {
+		if (this.checked) {
+			mainDiv.classList.add('small'); // Añade la clase 'small' para cambiar el tamaño
+		} else {
+			mainDiv.classList.remove('small'); // Remueve la clase 'small'
+		}
+	});
+</script>
+
+{% endblock %}
